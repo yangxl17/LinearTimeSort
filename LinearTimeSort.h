@@ -9,4 +9,4 @@
 
 //Counting Sort Function
 void CountingSort(int A[], int B[], int length, int k);
-void CountingSort(std::vector<int> A, std::vector<int> B, int k);
+void CountingSort(const std::vector<int>& A, std::vector<int>& B, int k);
