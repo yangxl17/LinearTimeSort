@@ -69,6 +69,52 @@ void RadixSort(const std::vector<std::vector<int>>& A, std::vector<std::vector<i
 	}
 }
 
+template<typename T>
+void InsertSort(std::list<T>& list)
+{
+	auto mbegin = list.begin();
+	while (mbegin != list.end())
+	{
+		auto mend = mbegin;
+		while (mend != list.begin())
+		{
+			mend--;
+			if (*mend < *mbegin)
+			{
+				++mend;
+				break;
+			}
+			else if (mend == list.begin())
+			{
+				break;
+			}
+		}
+		list.insert(mend, *mbegin);
+		mbegin = list.erase(mbegin);
+	}
+}
+
+void BucketSort(const std::vector<double>& A, std::vector<double>& B)
+{
+	int n = A.size();
+	vector <list<double>> C(n);
+	for (double a : A)
+	{
+		C[(int)n * a].push_back(a);
+	}
+	for (auto& c : C)
+	{
+		InsertSort(c);
+	}
+	for (auto& c : C)
+	{
+		for (double cc : c)
+		{
+			B.push_back(cc);
+		}
+	}
+}
+
 int main()
 {
 	int A1[10] = { 2,1,5,10,4,0,11,9,20,7 };
@@ -100,5 +146,20 @@ int main()
 		}
 		cout << endl;
 	}
+	list<int> C1 = { 8,4,1,9,-5,10,75,-20,30};
+	InsertSort<int>(C1);
+	for (int c1:C1)
+	{
+		cout << c1 << " ";
+	}
+	cout << endl;
+	vector<double> C2 = { 0.5,0.3,0.4,0.35,0.9 };
+	vector<double> C3;
+	BucketSort(C2, C3);
+	for (double c3 : C3)
+	{
+		cout << c3 << " ";
+	}
+	cout << endl;
 	return 0;
 }
