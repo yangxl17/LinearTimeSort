@@ -22,6 +22,7 @@ void CountingSort(int A[], int B[], int length, int k)
 		B[C[A[i]]-1] = A[i];
 		C[A[i]]--;
 	}
+	delete[] C;
 }
 
 void CountingSort(const std::vector<int>& A, std::vector<int>& B, int k)
@@ -39,6 +40,32 @@ void CountingSort(const std::vector<int>& A, std::vector<int>& B, int k)
 	{
 		B[C[A[j]]-1] = A[j];
 		C[A[j]]--;
+	}
+}
+
+void RadixSort(const std::vector<std::vector<int>>& A, std::vector<std::vector<int>>& B, int k)
+{
+	auto D = A;
+	for (int i = D[0].size() - 1; i >= 0; i--)
+	{
+		std::vector<int> C(k + 1, 0);
+		for (auto d : D)
+		{
+			C[d[i]]++;
+		}
+		for (int j = 1; j <= k; j++)
+		{
+			C[j] = C[j] + C[j - 1];
+		}
+		auto begin = D.begin();
+		auto end = D.end();
+		while (begin != end)
+		{
+			end--;
+			B[C[(*end)[i]]-1] = *end;
+			C[(*end)[i]]--;
+		}
+		D = B;
 	}
 }
 
@@ -60,6 +87,18 @@ int main()
 	for (; begin != end; begin++)
 	{
 		cout << *begin << " ";
+	}
+	cout << endl;
+	vector<vector<int>> A3{ {1,3,5},{1,2,6},{2,1,9},{0,4,8} };
+	vector<vector<int>> B3(4, { 0,0,0 });
+	RadixSort(A3, B3, 9);
+	for (auto b3 : B3)
+	{
+		for (auto bb3 : b3)
+		{
+			cout << bb3 << " ";
+		}
+		cout << endl;
 	}
 	return 0;
 }

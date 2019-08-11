@@ -10,3 +10,6 @@
 //Counting Sort Function
 void CountingSort(int A[], int B[], int length, int k);
 void CountingSort(const std::vector<int>& A, std::vector<int>& B, int k);
+
+//Radix Sort
+void RadixSort(const std::vector <std::vector<int>>& A, std::vector<std::vector<int>>& B, int k);
